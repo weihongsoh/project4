@@ -1,0 +1,5 @@
+flask
+flask-extended-jwt
+flask-api
+marshmallow - serializer/deserializer
+sqlalchemy - ORM
