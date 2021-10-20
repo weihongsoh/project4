@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import UserContext from './context/user-context'
-import Input from './components/Input'
+// import Input from './components/Input'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Tile from './components/List'
 import Item from './pages/Item'
@@ -25,7 +25,6 @@ function App() {
         }}
       >
 
-        <Input />
         <div>
           <h2>Game Store</h2>
           <Cart />

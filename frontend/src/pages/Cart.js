@@ -24,26 +24,53 @@ const Cart = () => {
     //   // 1 new column for purchase_id
     // }
 
-    console.log(123)
-    console.log(ctx.cart)
+    // console.log(123)
+    // console.log('ctx', ctx.cart)
+    // console.log('ctx sgf', JSON.stringify(ctx.cart))
 
     let obj = {}
     for (let i = 0; i < ctx.cart.length; i++) {
-      // console.log(ctx.cart.length)
-      // const item = { ctx.cart[i].id: ctx.cart[i] }
-      // obj.push(item)
-      obj.push(ctx.cart[i])
-    }
-    console.log(obj)
 
-    // const requestOptions = {
-    //   method: "PUT",
-    //   headers: { "Content-Type": "application/json" },
-    //   // body: JSON.stringify(newOrder)
-    //   body: JSON.stringify(ctx.cart)
+      if (obj[`${ctx.cart[i].id}`]) {
+        obj[`${ctx.cart[i].id}`].quantity++
+
+        obj[`${ctx.cart[i].id}`].subtotal = obj[`${ctx.cart[i].id}`].quantity * obj[`${ctx.cart[i].id}`].price
+
+      } else {
+
+        obj[`${ctx.cart[i].id}`] = (ctx.cart[i])
+
+        obj[`${ctx.cart[i].id}`].quantity = 1
+
+        obj[`${ctx.cart[i].id}`].subtotal = obj[`${ctx.cart[i].id}`].quantity * obj[`${ctx.cart[i].id}`].price
+
+      }
+      // console.log(i, '; ', ctx.cart[i])
+    }
+    // console.log('Checked out: ', obj)
+
+    // converting to array of objects
+    const checkout = []
+    for (const value of Object.values(obj)) {
+      checkout.push(value)
+      // console.log(`${value}`);
+    }
+    console.log('checkout', checkout)
+
+
+    // 
+    // for (const [key, value] of Object.entries(object1)) {
+    //   console.log(`${key}: ${value}`);
     // }
 
-    // const res = await fetch("http://127.0.0.1:5000/orders", requestOptions)
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      // body: JSON.stringify(newOrder)
+      body: JSON.stringify(checkout)
+    }
+
+    const res = await fetch("http://127.0.0.1:5000/orders", requestOptions)
 
     // ctx.setCart("")
   }

@@ -34,14 +34,13 @@ const Tile = () => {
     // console.log('element', element.target)
     // itemID here
     // console.log('target', element.target.value)
-
-
+    console.log('Added to Cart: ', element.target.name)
 
 
     const productID = ctx.productsArray[element.target.value - 1]
     // console.log(JSON.stringify(ctx.products))
     // console.log('ctx', ctx.products[productID - 1])
-    console.log(productID)
+    console.log('pid', productID)
 
     ctx.setCart((prevState) => [...prevState, productID])
     // console.log('element', element.target)
@@ -65,7 +64,7 @@ const Tile = () => {
                 USD ${element.price}
               </div>
             </NavLink>
-            <button id={index} value={element.id} onClick={handleAddToCart}>Add to Cart</button>
+            <button id={index} name={element.name} value={element.id} onClick={handleAddToCart}>Add to Cart</button>
           </div>
         )
       })}

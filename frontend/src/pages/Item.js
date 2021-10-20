@@ -12,8 +12,9 @@ const Item = () => {
   }
 
   const handleAddToCart = (element) => {
+    console.log('Added to Cart: ', element.target.name)
+
     const productID = ctx.productsArray[element.target.value - 1]
-    console.log(productID)
 
     ctx.setCart((prevState) => [...prevState, productID])
 
@@ -38,7 +39,7 @@ const Item = () => {
           USD ${ctx.productsArray[params.item]?.price}
         </div>
         <div>
-          <button value={ctx.productsArray[params.item]?.id} onClick={handleAddToCart}>Add to Cart</button>
+          <button name={ctx.productsArray[params.item]?.name} value={ctx.productsArray[params.item]?.id} onClick={handleAddToCart}>Add to Cart</button>
         </div>
       </div>
     </div>
