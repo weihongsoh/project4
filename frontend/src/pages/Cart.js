@@ -72,7 +72,7 @@ const Cart = () => {
 
     const res = await fetch("http://127.0.0.1:5000/orders", requestOptions)
 
-    // ctx.setCart("")
+    ctx.setCart("")
   }
 
   // const seeElement = () => {

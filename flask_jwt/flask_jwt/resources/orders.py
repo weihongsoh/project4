@@ -69,6 +69,7 @@ class Orders(Resource):
 
             # saving each order individually
             for order in array_of_orders:
+                print('order.....',order)
                 order.save()
             # orders_model.save()
 
