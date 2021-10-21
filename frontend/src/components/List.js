@@ -35,11 +35,10 @@ const List = () => {
     // console.log('target', element.target.value)
     // console.log('Added to Cart: ', element.target.name)
 
-
     const productID = ctx.productsArray[element.target.value - 1]
     // console.log(JSON.stringify(ctx.products))
     // console.log('ctx', ctx.products[productID - 1])
-    // console.log('pid', productID)
+    console.log('pid', productID)
 
     ctx.setCart((prevState) => [...prevState, productID])
     // console.log('element', element.target)
@@ -71,11 +70,15 @@ const List = () => {
                   </div>
                 </div>
               </NavLink>
-              <div className='container'>
-                <div style={{ textAlign: 'center' }} className='textAlign vertical-center'>
-                  <button className="btn btn-warning" type="button" id={index} name={element.name} value={element.id} onClick={handleAddToCart}>Add to Cart</button>
-                </div><br /><br />
-              </div>
+
+              {ctx.role === 0 ? (
+                <div className='container'>
+                  <div style={{ textAlign: 'center' }} className='textAlign vertical-center'>
+                    <button className="btn btn-warning" type="button" id={index} name={element.name} value={element.id} onClick={handleAddToCart}>Add to Cart</button>
+                  </div><br /><br />
+                </div>) : ('')}
+
+
             </div>
           )
         })}

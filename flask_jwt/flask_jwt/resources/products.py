@@ -124,24 +124,24 @@ class Products(Resource):
         #     return {'err': 'product not found'}, 400
 
     @classmethod
-    @jwt_required()
+    # @jwt_required()
     def delete(cls):
-        claims = get_jwt()
+        # claims = get_jwt()
 
-        if claims['role'] == '1':
-            input_json = schemas.InputProductID().load(request.get_json())
-            product_model = ProductsModel.find_by_id(input_json['id'])
+        # if claims['role'] == '1':
+        input_json = schemas.InputProductID().load(request.get_json())
+        product_model = ProductsModel.find_by_id(input_json['id'])
 
-            if product_model:
-                product_model.delete()
+        if product_model:
+            product_model.delete()
 
-                return {'info': 'product deleted'}, 200
-
-            else:
-                return {'err': 'product not found'}, 400
+            return {'info': 'product deleted'}, 200
 
         else:
-            return {'err': 'not authorised'}, 401
+            return {'err': 'product not found'}, 400
+
+        # else:
+        #     return {'err': 'not authorised'}, 401
 
 
 # class Login(Resource):

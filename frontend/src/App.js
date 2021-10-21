@@ -122,7 +122,7 @@ function App() {
 
 
       </UserContext.Provider>
-    </BrowserRouter >
+    </BrowserRouter>
   );
 }
 
