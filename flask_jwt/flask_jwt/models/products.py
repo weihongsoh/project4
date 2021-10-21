@@ -19,7 +19,7 @@ class ProductsModel(db.Model):
         return cls.query.filter_by(name=name).first()
 
     @classmethod
-    def find_by_id(cls, id: str) -> "ProductsModel":
+    def find_by_id(cls, id: int) -> "ProductsModel":
         return cls.query.filter_by(id=id).first()
 
     # @classmethod

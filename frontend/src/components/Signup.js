@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import UserContext from '../context/user-context'
 
 const Signup = () => {
@@ -25,36 +25,64 @@ const Signup = () => {
   const handleSignupSubmit = async (event) => {
     event.preventDefault();
 
-    if (ctx.password === ctx.verifyPassword) {
-      const newUser = {
-        name: ctx.name,
-        email: ctx.email,
-        password: ctx.password,
+    try {
+      if (ctx.password === ctx.verifyPassword) {
+        const newUser = {
+          name: ctx.name,
+          email: ctx.email,
+          password: ctx.password,
+        }
+
+        let requestOptions = {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser)
+        }
+
+        let res = await fetch("http://localhost:5000/users", requestOptions)
+
+
+        const existingUser = {
+          email: ctx.email,
+          password: ctx.password,
+        }
+
+        requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(existingUser)
+        }
+
+        res = await fetch("http://localhost:5000/login", requestOptions)
+
+        console.log('res......', res.ok)
+        if (res.ok) {
+          ctx.setAuth(true)
+          ctx.setToken(res)
+
+          history.push('/shop')
+        } else {
+          throw 'bye bye'
+        }
+
+      } else {
+        console.log("Passwords do not match. Please try again")
       }
 
-      const requestOptions = {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser)
-      }
-
-      const res = await fetch("http://localhost:5000/users", requestOptions)
-
-      history.push('/login')
-
-    } else {
-      console.log("Passwords do not match. Please try again")
+    } catch (err) {
+      console.log(err)
     }
 
   }
 
   return (
     <div>Signup
+      <Link to="/login">Already have an account? Sign in here</Link>
       <form>
         <input placeholder="Username" onChange={handleNameChange} /><br />
         <input placeholder="Email" onChange={handleEmailChange} /><br />
-        <input placeholder="Password" onChange={handlePasswordChange} /><br />
-        <input placeholder="Verify Password" onChange={handleVerifyPasswordChange} /><br />
+        <input type='password' placeholder="Password" onChange={handlePasswordChange} /><br />
+        <input type='password' placeholder="Verify Password" onChange={handleVerifyPasswordChange} /><br />
         <button onClick={handleSignupSubmit}>Submit</button>
       </form>
     </div>

@@ -24,30 +24,19 @@ const Cart = () => {
     //   // 1 new column for purchase_id
     // }
 
-    // console.log(123)
-    // console.log('ctx', ctx.cart)
-    // console.log('ctx sgf', JSON.stringify(ctx.cart))
-
     let obj = {}
     for (let i = 0; i < ctx.cart.length; i++) {
-
       if (obj[`${ctx.cart[i].id}`]) {
         obj[`${ctx.cart[i].id}`].quantity++
-
         obj[`${ctx.cart[i].id}`].subtotal = obj[`${ctx.cart[i].id}`].quantity * obj[`${ctx.cart[i].id}`].price
-
       } else {
-
         obj[`${ctx.cart[i].id}`] = (ctx.cart[i])
-
         obj[`${ctx.cart[i].id}`].quantity = 1
-
         obj[`${ctx.cart[i].id}`].subtotal = obj[`${ctx.cart[i].id}`].quantity * obj[`${ctx.cart[i].id}`].price
 
+        obj[`${ctx.cart[i].id}`].email = ctx.email
       }
-      // console.log(i, '; ', ctx.cart[i])
     }
-    // console.log('Checked out: ', obj)
 
     // converting to array of objects
     const checkout = []
@@ -56,9 +45,8 @@ const Cart = () => {
       // console.log(`${value}`);
     }
     console.log('checkout', checkout)
+    // console.log('email......', ctx.email)
 
-
-    // 
     // for (const [key, value] of Object.entries(object1)) {
     //   console.log(`${key}: ${value}`);
     // }
@@ -86,20 +74,21 @@ const Cart = () => {
 
   return (
     <div>
-      Shopping Cart
+      <div style={{ textAlign: 'center' }}>
+        <button className="btn btn-warning" type="button" onClick={handleCheckout}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart4" viewBox="0 0 16 16">
+            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+          </svg> Shopping Cart Checkout</button>
 
+
+      </div>
       {ctx.cart && ctx.cart.map((element, index) => {
         return (
-          <div key={index} id={index}>
-            <div key={index} id={index}>
-              <button id={index} onClick={handleRemoveFromCart}>Remove Item</button>{element.name}
-            </div>
+          <div key={index} id={index} className='' style={{ color: 'white' }}>
+            <button type='button' className='btn btn-danger btn-sm' id={index} onClick={handleRemoveFromCart}>Remove Item</button>{element.name}
           </div>
         )
       })}
-      <div>
-        <button onClick={handleCheckout}>Checkout</button>
-      </div>
     </div>
   )
 }

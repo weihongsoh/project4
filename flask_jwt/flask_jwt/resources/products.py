@@ -85,55 +85,60 @@ class Products(Resource):
 
         return schemas.Users().dump(users_model), 200
 
-    # update user
+    # update product
     @classmethod
-    @jwt_required()
+    # @jwt_required()
     def patch(cls):
-        claims = get_jwt()
+        # claims = get_jwt()
 
-        if claims['role'] == 'ADMIN':
-            input_json = schemas.InputUUID().load(request.get_json())
-            uuid = input_json['uuid']
-        else:
-            uuid = get_jwt_identity()
+        # if claims['role'] == 'ADMIN':
+        # input_json = schemas.InputProductID().load(request.get_json())
+        #     uuid = input_json['uuid']
+        # else:
+        #     uuid = get_jwt_identity()
+        input_json = schemas.InputProductID().load(request.get_json())
+        # product_model = ProductsModel.find_by_id(input_json['id'])
 
-        users_model = UsersModel.find_by_uuid(uuid)
+        products_model = ProductsModel.find_by_id(input_json['id'])
+        print(products_model)
+        # if users_model:
+        #     input_json = schemas.InputEmailName().load(request.get_json())
 
-        if users_model:
-            input_json = schemas.InputEmailName().load(request.get_json())
+            # if input_json.get('email') and len(input_json['email']) > 0 and input_json['email'] != users_model.email:
+            #     if find_duplicate_email(input_json['email']):
+            #         return {'err': 'duplicate email'}
 
-            if input_json.get('email') and len(input_json['email']) > 0 and input_json['email'] != users_model.email:
-                if find_duplicate_email(input_json['email']):
-                    return {'err': 'duplicate email'}
+        products_model.name = input_json['name']
+        products_model.image = input_json['image']
+        products_model.description = input_json['description']
+        products_model.price = input_json['price']
 
-                users_model.email = input_json['email']
+            # if input_json.get('name') and len(input_json['name']) > 0 and input_json['name'] != users_model.name:
+            #     users_model.name = input_json['name']
 
-            if input_json.get('name') and len(input_json['name']) > 0 and input_json['name'] != users_model.name:
-                users_model.name = input_json['name']
+        products_model.save()
 
-            users_model.save()
+        return {'info': 'product updated'}, 200
 
-            return {'info': 'user updated'}, 200
-
-        else:
-            return {'err': 'user not found'}, 400
+        # else:
+        #     return {'err': 'product not found'}, 400
 
     @classmethod
     @jwt_required()
     def delete(cls):
         claims = get_jwt()
 
-        if claims['role'] == 'ADMIN':
-            input_json = schemas.InputUUID().load(request.get_json())
-            user_model = UsersModel.find_by_uuid(input_json['uuid'])
+        if claims['role'] == '1':
+            input_json = schemas.InputProductID().load(request.get_json())
+            product_model = ProductsModel.find_by_id(input_json['id'])
 
-            if user_model:
-                user_model.delete()
+            if product_model:
+                product_model.delete()
 
-                return {'info': 'user deleted'}, 200
+                return {'info': 'product deleted'}, 200
 
             else:
-                return {'err': 'user not found'}, 400
+                return {'err': 'product not found'}, 400
 
         else:
             return {'err': 'not authorised'}, 401

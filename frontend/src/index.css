@@ -20,3 +20,15 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+body, html {
+  height: 100%;
+}
+
+.bg { 
+  background-image: url("https://c.tenor.com/klO4macQ19AAAAAC/snow-falling.gif");
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

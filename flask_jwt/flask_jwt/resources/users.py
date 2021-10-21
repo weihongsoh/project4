@@ -161,6 +161,7 @@ class Login(Resource):
                 return {
                            'access': access_token,
                            'refresh': refresh_token,
+                           # 'uuid': users_model.uuid,
                        }, 200
 
         else:

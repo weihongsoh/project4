@@ -21,7 +21,7 @@ class Users(mm.SQLAlchemyAutoSchema):
 class InputRegistrationData(Schema):
     name = fields.Str(required=True, validate=validate.Length(min=3, max=50))
     email = fields.Str(required=True, validate=validate.Length(max=50))
-    password = fields.Str(required=True, validate=validate.Length(min=15, max=50))
+    password = fields.Str(required=True, validate=validate.Length(min=5, max=50))
 
     class Meta:
         unknown = EXCLUDE
@@ -51,7 +51,7 @@ class InputEmailName(Schema):
 
 class InputEmailPassword(Schema):
     email = fields.Str(required=True, validate=validate.Length(max=50))
-    password = fields.Str(required=True, validate=validate.Length(min=15, max=50))
+    password = fields.Str(required=True, validate=validate.Length(min=5, max=50))
 
     class Meta:
         unknown = EXCLUDE
@@ -92,6 +92,13 @@ class InputProductData(Schema):
     image = fields.Int(required=True, validate=validate.Length(min=3, max=250))
     description = fields.Int(required=True, validate=validate.Length(min=0, max=5000))
     price = fields.Float(required=True, validate=validate.Range(min=0, max=9999))
+
+    class Meta:
+        unknown = EXCLUDE
+
+
+class InputProductID(Schema):
+    id = fields.Int(required=True)
 
     class Meta:
         unknown = EXCLUDE

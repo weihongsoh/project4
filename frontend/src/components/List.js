@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import UserContext from '../context/user-context'
 import { NavLink } from 'react-router-dom'
 
-const Tile = () => {
+const List = () => {
   const ctx = useContext(UserContext)
   // const params = useParams()
 
@@ -20,7 +20,6 @@ const Tile = () => {
       //   obj.push(item)
       // }
 
-
     } catch (err) {
       console.log(err)
     }
@@ -34,42 +33,56 @@ const Tile = () => {
     // console.log('element', element.target)
     // itemID here
     // console.log('target', element.target.value)
-    console.log('Added to Cart: ', element.target.name)
+    // console.log('Added to Cart: ', element.target.name)
 
 
     const productID = ctx.productsArray[element.target.value - 1]
     // console.log(JSON.stringify(ctx.products))
     // console.log('ctx', ctx.products[productID - 1])
-    console.log('pid', productID)
+    // console.log('pid', productID)
 
     ctx.setCart((prevState) => [...prevState, productID])
     // console.log('element', element.target)
     // console.log('type', typeof (element.target.notname))
   }
 
+
+
+
   // WHOLE LIST OF PRODUCTSSS
   return (
-    <div>
-      {ctx.productsArray && ctx.productsArray.map((element, index) => {
-        return (
-          <div key={index} id={index} className='column'>
-            <NavLink to={`/${index}`}>
-              <div className='row-sm-4'>
-                <img src={element.image} width='200' alt={element.name} />
+    <div className='container'>
+
+      <div className='row'>
+        {ctx.productsArray && ctx.productsArray.map((element, index) => {
+          return (
+            <div key={index} id={index} className='col'>
+
+              <NavLink to={`/${index}`}>
+                <div className='row'>
+                  <img src={element.image} alt={element.name} />
+                </div>
+                <div className='align-self-end'>
+                  <div className='text-center fs-6 fw-bold'>
+                    {element.name}
+                  </div>
+                  <div className='text-center fs-6 fw-bold'>
+                    USD ${element.price}
+                  </div>
+                </div>
+              </NavLink>
+              <div className='container'>
+                <div style={{ textAlign: 'center' }} className='textAlign vertical-center'>
+                  <button className="btn btn-warning" type="button" id={index} name={element.name} value={element.id} onClick={handleAddToCart}>Add to Cart</button>
+                </div><br /><br />
               </div>
-              <div className='row-sm-4'>
-                {element.name}
-              </div>
-              <div className='row-sm-4'>
-                USD ${element.price}
-              </div>
-            </NavLink>
-            <button id={index} name={element.name} value={element.id} onClick={handleAddToCart}>Add to Cart</button>
-          </div>
-        )
-      })}
+            </div>
+          )
+        })}
+      </div>
     </div>
+
   )
 }
 
-export default Tile
+export default List
