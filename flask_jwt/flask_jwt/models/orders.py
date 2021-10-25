@@ -1,4 +1,4 @@
-from sqlalchemy.dialects.postgresql import UUID, TIMESTAMP
+from sqlalchemy.dialects.postgresql import UUID
 
 from models.db import db
 
@@ -17,22 +17,6 @@ class OrdersModel(db.Model):
     def find_all(cls):
         return cls.query.all()
 
-    # @classmethod
-    # def find_by_email(cls, email: str) -> "UsersModel":
-    #     return cls.query.filter_by(email=email).first()
-    #
-    # @classmethod
-    # def find_by_uuid(cls, uuid: str) -> "UsersModel":
-    #     return cls.query.filter_by(uuid=uuid).first()
-    #
-    # @classmethod
-    # def find_by_uuid__role(cls, uuid: str) -> tuple:
-    #     return cls.query.with_entities(cls.role).filter_by(uuid=uuid).first()
-
     def save(self):
         db.session.add(self)
         db.session.commit()
-
-    # def delete(self) -> None:
-    #     db.session.delete(self)
-    #     db.session.commit()

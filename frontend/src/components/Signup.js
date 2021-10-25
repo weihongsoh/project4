@@ -41,7 +41,6 @@ const Signup = () => {
 
         let res = await fetch("http://localhost:5000/users", requestOptions)
 
-
         const existingUser = {
           email: ctx.email,
           password: ctx.password,
@@ -55,14 +54,13 @@ const Signup = () => {
 
         res = await fetch("http://localhost:5000/login", requestOptions)
 
-        console.log('res......', res.ok)
         if (res.ok) {
           ctx.setAuth(true)
           ctx.setToken(res)
 
           history.push('/shop')
         } else {
-          throw 'bye bye'
+          throw 'invalid'
         }
 
       } else {

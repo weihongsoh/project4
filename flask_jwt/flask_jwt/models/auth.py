@@ -37,11 +37,3 @@ class AuthModel(db.Model):
     def save(self) -> None:
         db.session.add(self)
         db.session.commit()
-
-
-# def prune_database():
-#     now = datetime.now()
-#     expired = LoggedInModel.query.filter(LoggedInModel.expires < now).all()
-#     for token in expired:
-#         db.session.delete(token)
-#     db.session.commit()

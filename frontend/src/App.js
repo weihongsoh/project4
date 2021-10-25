@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import UserContext from './context/user-context'
-// import Input from './components/Input'
 import { BrowserRouter, Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import List from './components/List'
 import Item from './pages/Item'
@@ -28,10 +27,6 @@ function App() {
   const [token, setToken] = useState({})
 
   const history = useHistory()
-
-  const handleLogin = () => {
-
-  }
 
   const handleLogout = () => {
     setAuth(false)
@@ -65,21 +60,21 @@ function App() {
           token, setToken,
         }}
       >
-
-
         <div>
           <div className={(auth ? 'container-fluid bg' : 'container-fluid')} >
-
             <div className='row'>
               <div className='col' style={{ textAlign: 'center', color: (auth ? 'red' : 'black') }}>
                 <h2>Game Store</h2>
               </div>
+
               {auth ?
                 <div className='col' style={{ textAlign: 'end' }}>
                   <button type='button' className='btn btn-outline-danger' onClick={handleLogout}>Logout</button>
                 </div>
                 : ''}
+
             </div>
+
             {auth ?
               <div>
                 <img width='900' src='https://assets.nintendo.com/image/upload/c_fill,f_auto,h_520,q_auto,w_1440/Holiday%20Gift%20Guide/2021/Pages/headers/1366x493_homepage_hero' />
@@ -87,7 +82,6 @@ function App() {
               : ''}
 
             <div className='row'>
-
               <div className='col'>
                 <Switch>
                   <Route exact path='/'>
@@ -104,23 +98,18 @@ function App() {
                   </PrivateRoute>
                 </Switch>
               </div>
-
               <div className='col'>
+
                 {auth ?
                   <div>
                     <Cart />
                   </div>
                   : ''}
+
               </div>
-
             </div>
-
           </div>
         </div>
-
-
-
-
       </UserContext.Provider>
     </BrowserRouter>
   );
@@ -149,11 +138,3 @@ function PrivateRoute({ children, auth, ...rest }) {
 }
 
 export default App
-
-
-// {auth ? (
-//   <div>
-//     <button onClick={handleLogout}>Logout</button>
-//     <Cart />
-//   </div>
-// ) : ''}

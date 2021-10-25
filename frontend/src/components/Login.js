@@ -38,9 +38,8 @@ const Login = () => {
         }
         history.push('/shop')
 
-        console.log('res......', res)
       } else {
-        throw 'bye bye'
+        throw 'invalid'
       }
 
     } catch (err) {
@@ -56,7 +55,6 @@ const Login = () => {
         <input type='password' placeholder="Password" onChange={handlePasswordChange} /><br />
         <button onClick={handleLoginSubmit}>Submit</button>
       </form>
-
     </div>
   )
 }

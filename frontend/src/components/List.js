@@ -12,14 +12,6 @@ const List = () => {
       const data = await res.json();
       ctx.setProductsArray(data)
 
-      // converting from array of objects to object of objects
-      // let obj
-      // for (let i = 0; i < ctx.productsArray.length; i++) {
-      //   const item = ctx.productsArray[i].id
-      //   console.log('item', item)
-      //   obj.push(item)
-      // }
-
     } catch (err) {
       console.log(err)
     }
@@ -30,29 +22,14 @@ const List = () => {
   }, [])
 
   const handleAddToCart = (element) => {
-    // console.log('element', element.target)
-    // itemID here
-    // console.log('target', element.target.value)
-    // console.log('Added to Cart: ', element.target.name)
-
     const productID = ctx.productsArray[element.target.value - 1]
-    // console.log(JSON.stringify(ctx.products))
-    // console.log('ctx', ctx.products[productID - 1])
-    console.log('pid', productID)
-
     ctx.setCart((prevState) => [...prevState, productID])
-    // console.log('element', element.target)
-    // console.log('type', typeof (element.target.notname))
   }
 
-
-
-
-  // WHOLE LIST OF PRODUCTSSS
   return (
     <div className='container'>
-
       <div className='row'>
+
         {ctx.productsArray && ctx.productsArray.map((element, index) => {
           return (
             <div key={index} id={index} className='col'>
@@ -78,13 +55,11 @@ const List = () => {
                   </div><br /><br />
                 </div>) : ('')}
 
-
             </div>
           )
         })}
       </div>
     </div>
-
   )
 }
 

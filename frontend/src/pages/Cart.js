@@ -5,7 +5,6 @@ const Cart = () => {
   const ctx = useContext(UserContext)
 
   const handleRemoveFromCart = (element) => {
-    // ctx.setCart((prevState) => [...prevState, element.target.name])
     const newCart = [...ctx.cart];
     newCart.splice(element.target.id, 1);
     ctx.setCart(newCart);
@@ -13,16 +12,6 @@ const Cart = () => {
 
   const handleCheckout = async (event) => {
     event.preventDefault()
-
-    // const newOrder = {
-    //   uuid: 1122,
-    //   name: 12,
-    //   price: 34,
-    //   quantity: 56,
-    //   subtotal: 78,
-    //   // total: 90,
-    //   // 1 new column for purchase_id
-    // }
 
     let obj = {}
     for (let i = 0; i < ctx.cart.length; i++) {
@@ -38,23 +27,14 @@ const Cart = () => {
       }
     }
 
-    // converting to array of objects
     const checkout = []
     for (const value of Object.values(obj)) {
       checkout.push(value)
-      // console.log(`${value}`);
     }
-    console.log('checkout', checkout)
-    // console.log('email......', ctx.email)
-
-    // for (const [key, value] of Object.entries(object1)) {
-    //   console.log(`${key}: ${value}`);
-    // }
 
     const requestOptions = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      // body: JSON.stringify(newOrder)
       body: JSON.stringify(checkout)
     }
 
@@ -63,19 +43,10 @@ const Cart = () => {
     ctx.setCart("")
   }
 
-  // const seeElement = () => {
-  //   ctx.cart.map((element, index) => {
-  //     console.log(JSON.stringify(index, element))
-  //     console.log(element)
-  //   })
-  // }
-
-  // seeElement()
-
   return (
     <div>
-      {ctx.role === 0 ? (
 
+      {ctx.role === 0 ? (
         <div style={{ textAlign: 'center' }}>
           <button className="btn btn-warning" type="button" onClick={handleCheckout}>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart4" viewBox="0 0 16 16">
@@ -91,6 +62,7 @@ const Cart = () => {
           </div>
         )
       })}
+
     </div>
   )
 }
